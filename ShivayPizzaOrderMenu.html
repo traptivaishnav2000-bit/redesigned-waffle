@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Pizza & Fast Food Menu | Shivay Gogawan</title>
+<meta name="description" content="Order pizza, sandwiches, burgers, momos and more. Delivery in Gogawan, Shahpura, Adalpura, Mohammadpur."/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Segoe UI',sans-serif}
+body{background:#fff5e6;min-height:100vh}
+.orange{color:#f97316}
+.bg-orange{background:linear-gradient(to right,#f97316,#ef4444)}
+.text-white{color:white}
+.sticky{position:sticky;top:0}
+.z-40{z-index:40;box-shadow:0 10px 15px -3px rgba(0,0,0,0.1)}
+.max-w-3xl{max-width:48rem;margin:0 auto;padding:0 1rem}
+.flex{display:flex;align-items:center;justify-content:space-between}
+.text-xl{font-size:1.25rem;font-weight:bold}
+.text-xs{font-size:0.75rem;color:#fed7aa}
+.bg-white{background:white}
+.text-orange-500{color:#f97316}
+.font-bold{font-weight:bold}
+.px-4{padding:0 1rem}.py-2{padding:0.5rem 0}
+.rounded-full{border-radius:9999px}.text-sm{font-size:0.875rem}
+.border-b{border-bottom:1px solid #ffedd5}
+.overflow-x-auto{overflow-x:auto}
+.gap-1{gap:0.25rem}.py-2{padding:0.5rem 0}
+.whitespace-nowrap{white-space:nowrap}
+.px-3{padding:0 0.75rem}.py-1-5{padding:0.375rem 0}
+.bg-orange-50{background:#fff7ed}.text-orange-700{color:#c2410c}
+.pb-24{padding-bottom:6rem}.pt-4{padding-top:1rem}
+.mb-8{margin-bottom:2rem}.mt-6{margin-top:1.5rem}
+.text-lg{font-size:1.125rem;color:#1f2937}
+.border-b-2{border-bottom:2px solid #fdba74}.pb-1{padding-bottom:0.25rem}
+.grid{display:grid;gap:0.5rem}
+.rounded-xl{border-radius:0.75rem}.px-4{padding:0 1rem}.py-3{padding:0.75rem 0}
+.shadow-sm{box-shadow:0 1px 2px 0 rgba(0,0,0,0.05)}.border{border:1px solid #ffedd5}
+.flex-1{flex:1}.min-w-0{min-width:0}.pr-3{padding-right:0.75rem}
+.font-medium{font-weight:500}.leading-snug{line-height:1.375}
+.bg-orange-500{background:#f97316}.hover\:bg-orange-600:hover{background:#ea580c}
+.text-white{color:white}.px-4{padding:0 1rem}.py-1-5{padding:0.375rem 0}
+.transition{transition:all 0.2s}.scroll-mt-28{scroll-margin-top:7rem}
+.rounded-2xl{border-radius:1rem}.shadow-md{box-shadow:0 4px 6px -1px rgba(0,0,0,0.1)}
+.p-5{padding:1.25rem}.flex-col{flex-direction:column}.gap-3{gap:0.75rem}
+.border-gray-300{border-color:#d1d5db}.rounded-lg{border-radius:0.5rem}
+.py-2-5{padding:0.625rem 0}.focus\:ring-2:focus{box-shadow:0 0 0 2px #fb923c}
+.resize-none{resize:none}.bg-green-500{background:#22c55e}
+.hover\:bg-green-600:hover{background:#16a34a}.py-3{padding:0.75rem 0}
+.text-base{font-size:1rem}.gap-2{gap:0.5rem}.text-center{text-align:center}
+.text-gray-500{color:#6b7280}.py-4{padding:1rem 0}.font-semibold{font-weight:600}
+.text-gray-700{color:#374151}.fixed{position:fixed}.bottom-6{bottom:1.5rem}
+.right-4{right:1rem}.w-14{width:3.5rem}.h-14{height:3.5rem}.text-2xl{font-size:1.5rem}
+.shadow-xl{box-shadow:0 20px 25px -5px rgba(0,0,0,0.1)}.z-50{z-index:50}
+.cart-count{position:absolute;top:-5px;right:-5px;background:red;color:white;border-radius:50%;width:18px;height:18px;font-size:10px;display:flex;align-items:center;justify-content:center}
+.cart-panel{display:none;position:fixed;bottom:80px;right:20px;width:300px;max-height:400px;background:white;border-radius:12px;box-shadow:0 10px 25px rgba(0,0,0,0.2);z-index:60;padding:15px;overflow-y:auto}
+.cart-item{display:flex;justify-content:space-between;margin-bottom:8px;font-size:14px}
+.cart-total{border-top:2px solid #f97316;padding-top:8px;margin-top:8px;font-weight:bold}
+.ml-1{margin-left:0.25rem}
+</style>
+</head>
+<body>
+<div>
+<header class="bg-orange text-white sticky z-40">
+<div class="max-w-3xl flex">
+<div><h1 class="text-xl font-bold">🍕 Shivay Pizza & Fast Food</h1><p class="text-xs">Gogawan · Near Govt Hospital</p></div>
+<button class="relative bg-white text-orange-500 font-bold px-4 py-2 rounded-full text-sm shadow" onclick="toggleCart()">🛒 Cart <span id="cartCount" class="cart-count">0</span></button>
+</div>
+</header>
+
+<nav class="bg-white border-b overflow-x-auto sticky z-30">
+<div class="flex gap-1 py-2 max-w-3xl">
+<a href="#veg-pizza" class="whitespace-nowrap text-xs font-medium px-3 py-1-5 rounded-full bg-orange-50 text-orange-700">🍕 Veg Pizza</a>
+<a href="#spicy-pizza" class="whitespace-nowrap text-xs font-medium px-3 py-1-5 rounded-full bg-orange-50 text-orange-700">🌶️ Spicy Veg</a>
+<a href="#exotic-pizza" class="whitespace-nowrap text-xs font-medium px-3 py-1-5 rounded-full bg-orange-50 text-orange-700">🫒 Exotic</a>
+<a href="#sandwiches" class="whitespace-nowrap text-xs font-medium px-3 py-1-5 rounded-full bg-orange-50 text-orange-700">🥪 Sandwiches</a>
+<a href="#burgers" class="whitespace-nowrap text-xs font-medium px-3 py-1-5 rounded-full bg-orange-50 text-orange-700">🍔 Burgers</a>
+<a href="#fries" class="whitespace-nowrap text-xs font-medium px-3 py-1-5 rounded-full bg-orange-50 text-orange-700">🍟 Fries</a>
+<a href="#momos" class="whitespace-nowrap text-xs font-medium px-3 py-1-5 rounded-full bg-orange-50 text-orange-700">🥟 Momos</a>
+<a href="#drinks" class="whitespace-nowrap text-xs font-medium px-3 py-1-5 rounded-full bg-orange-50 text-orange-700">🥤 Drinks</a>
+<a href="#order" class="whitespace-nowrap text-xs font-bold px-3 py-1-5 rounded-full bg-green-500 text-white">📦 Order</a>
+</div>
+</nav>
+
+<main class="max-w-3xl pb-24 pt-4">
+
+<!-- VEG PIZZA -->
+<section id="veg-pizza" class="mb-8 scroll-mt-28">
+<h2 class="text-lg font-bold mb-3 border-b-2 pb-1 orange">🍕 Cheese Lover ❤️</h2>
+<div class="grid">
+<div class="bg-white rounded-xl px-4 py-3 flex justify-between shadow-sm border"><div class="flex-1 pr-3"><p class="font-medium text-sm">Corn Cheese Pizza</p><p class="orange font-bold text-sm">S ₹49 | B ₹99</p></div><div><button class="bg-orange-500 hover:bg-orange-600 text-white text-xs font-bold px-3 py-1-5 rounded-full" onclick="addToCart('Corn Cheese Pizza S',49)">S ADD</button><button class="bg-orange-500 hover:bg-orange-600 text-white text-xs font-bold px-3 py-1-5 rounded-full ml-1" onclick="addToCart('Corn Cheese Pizza B',99)">B ADD</button></div></div>
+<div class="bg-white rounded-xl px-4 py-3 flex justify-between shadow-sm border"><div class="flex-1 pr-3"><p class="font-medium text-sm">Onion Cheese Pizza</p><p class="orange font-bold text-sm">S ₹49 | B ₹99</p></div><div><button class="bg-orange-500 hover:bg-orange-600 text-white text-xs font-bold px-3 py-1-5 rounded-full" onclick="addToCart('Onion Cheese Pizza S',49)">S ADD</button><button class="bg-orange-500 hover:bg-orange-600 text-white text-xs font-bold px-3 py-1-5 rounded-full ml-1" onclick="addToCart('Onion Cheese Pizza B',99)">B ADD</button></div></div>
+<div class="bg-white rounded-xl px-4 py-3 flex justify-between shadow-sm border"><div class="flex-1 pr-3"><p class="font-medium text-sm">Tomato Cheese Pizza</p><p class="orange font-bold text-sm">S ₹49 | B ₹99</p></div><div><button class="bg-orange-500 hover:bg-orange-600 text-white text-xs font-bold px-3 py-1-5 rounded-full" onclick="addToCart('Tomato Cheese Pizza S',49)">S ADD</button><button class="bg-orange-500 hover:bg-orange-600 text-white text-xs font-bold px-3 py-1-5 rounded-full ml-1" onclick="addToCart('Tomato Cheese Pizza B',99)">B ADD</button></div></div>
+<div class="bg-white rounded-xl px-4 py-3 flex justify-between shadow-sm border"><div class="flex-1 pr-3"><p class="font-medium text-sm">Capsicum Cheese Pizza</p><p class="orange font-bold text-sm">S ₹49 | B ₹99</p></div><div><button class="bg-orange-500 hover:bg-orange-600 text-white text-xs font-bold px-3 py-1-5 rounded-full" onclick="addToCart('Capsicum Cheese Pizza S',49)">S ADD</button><button class="bg-orange-500 hover:bg-orange-600 text-white text-xs font-bold px-3 py-1-5 rounded-full ml-1" onclick="addToCart('Capsicum Cheese Pizza B',99)">B ADD</button></div></div>
+<div class="bg-white rounded-xl px-4 py-3 flex justify-between shadow-sm border"><div class="flex-1 pr-3"><p class="font-medium text-sm">2 Veggies Topping Pizza</p><p class="orange font-bold text-sm">S ₹69 | B ₹99</p></div><div><button class="bg-orange-500 hover:bg-orange-600 text-white text-xs font-bold px-3 py-1-5 rounded-full" onclick="addToCart('2 Veggies Topping Pizza S',69)">S ADD</button><button class="bg-orange-500 hover:bg-orange-600 text-white text-xs font-bold px-3 py-1-5 rounded-full ml-1" onclick="addToCart('2 Veggies Topping Pizza B',99)">B ADD</button></div></div>
+<div class="bg-white rounded-xl px-4 py-3 flex justify-between shadow-sm border"><div class="flex-1 pr-3"><p class="font-medium text-sm">Mix Veg Pizza</p><p class="orange font-bold text-sm">S ₹79 | B ₹99</p></div><div><button class="bg-orange-500 hover:bg-orange-600 text-white text-xs font-bold px-3 py-1-5 rounded-full" onclick="addToCart('Mix Veg Pizza S',79)">S ADD</button><button class="bg-orange-500 hover:bg-orange-600 text-white text-xs font-bold px-3 py-1-5 rounded-full ml-1" onclick="addToCart('Mix Veg Pizza B',99)">B ADD</button></div></div>
+<div class="bg-white rounded-xl px-4 py-3 flex justify-between shadow-sm border"><div class="flex-1 pr-3"><p class="font-medium text-sm">Margherita Double Cheese Pizza</p><p class="orange font-bold text-sm">S ₹79 | B ₹149</p></div><div><button class="bg-orange-500 hover:bg-orange-600 text-white text-xs font-bold px-3 py-1-5 rounded-full" onclick="addToCart('Margherita Double Cheese Pizza S',79)">S ADD</button><button class="bg-orange-500 hover:bg-orange-600 text-white text-xs font-bold px-3 py-1-5 rounded-full ml-1" onclick="addToCart('Margherita Double Cheese Pizza B',149)">B ADD</button></div></div>
+<div class="bg-white rounded-xl px-4 py-3 flex justify-between shadow-sm border"><div class="flex-1 pr-3"><p class="font-medium text-sm">Farm House / Veg Paradise Pizza</p><p class="orange font-bold text-sm">S ₹119 | B ₹149</p></div><div><button class="bg-orange-500 hover:bg-orange-600 text-white text-xs font-bold px-3 py-1-5 rounded-full" onclick="addToCart('Farm House Pizza S',119)">S ADD</button><button class="bg-orange-500 hover:bg-orange-600 text-white text-xs font-bold px-3 py-1-5 rounded-full ml-1" onclick="addToCart('Farm House Pizza B',149)">B ADD</button></div></div>
+<div class="bg-white rounded-xl px-4 py-3 flex justify-between shadow-sm border"><div class="flex-1 pr-3"><p class="font-medium text-sm">Cheese Burst Pizza</p><p class="orange font-bold text-sm">S ₹149 | B ₹179</p></div><div><button class="bg-orange-500 hover:bg-orange-600 text-white text-xs font-bold px-3 py-1-5 rounded-full" onclick="addToCart('Cheese Burst Pizza S',149)">S ADD</button><button class="bg-orange-500 hover:bg-orange-600 text-white text-xs font-bold px-3 py-1-5 rounded-full ml-1" onclick="addToCart('Cheese Burst Pizza B',179)">B ADD</button></div></div>
+</div>
+
+<h2 class="text-lg font-bold mb-3 border-b-2 pb-1 mt-6 orange">🧀 Paneer Lover ❤️</h2>
+<div class="grid">
+<div class="bg-white rounded-xl px-4 py-3 flex justify-between shadow-sm border"><div class="flex-1 pr-3"><p class="font-medium text-sm">Paneer Corn Double Cheese Pizza</p><p class="orange font-bold text-sm">S ₹79 | B ₹119</p></div><div><button class="bg-orange-500 hover:bg-orange-600 text-white text-xs font-bold px-3 py-1-5 rounded-full" onclick="addToCart('Paneer Corn Double Cheese Pizza S',79)">S ADD</button><button class="bg-orange-500 hover:bg-orange-600 text-white text-xs font-bold px-3 py-1-5 rounded-full ml-1" onclick="addToCart('Paneer Corn Double Cheese Pizza B',119)">B ADD</button></div></div>
+<div class="bg-white rounded-xl px-4 py-3 flex justify-between shadow-sm border"><div class="flex-1 pr-3"><p class="font-medium text-sm">Paneer Onion Double Cheese Pizza</p><p class="orange font-bold text-sm">S ₹79 | B ₹119</p></div><div><button class="bg-orange-500 hover:bg-orange-600 text-white text-xs font-bold px-3 py-1-5 rounded-full" onclick="addToCart('Paneer Onion Double Cheese Pizza S',79)">S ADD</button><button class="bg-orange-500 hover:bg-orange-600 text-white text-xs font-bold px-3 py-1-5 rounded-full ml-1" onclick="addToCart('Paneer Onion Double Cheese Pizza B',119)">B ADD</button></div></div>
+<div class="bg-white rounded-xl px-4 py-3 flex justify-between shadow-sm border"><div class="flex-1 pr-3"><p class="font-medium text-sm">Paneer Capsicum Double Cheese Pizza</p><p class="orange font-bold text-sm">S ₹79 | B ₹119</p></div><div><button class="bg-orange-500 hover:bg-orange-600 text-white text-xs font-bold px-3 py-1-5 rounded-full" onclick="addToCart('Paneer Capsicum Double Cheese Pizza S',79)">S ADD</button><button class="bg-orange-500 hover:bg-orange-600 text-white text-xs font-bold px-3 py-1-5 rounded-full ml-1" onclick="addToCart('Paneer Capsicum Double Cheese Pizza B',119)">B ADD</button></div></div>
+<div class="bg-white rounded-xl px-4 py-3 flex justify-between shadow-sm border"><div class="flex-1 pr-3"><p class="font-medium text-sm">Paneer Tomato Double Cheese Pizza</p><p class="orange font-bold text-sm">S ₹79 | B ₹119</p></div><div><button class="bg-orange-500 hover:bg-orange-600 text-white text-xs font-bold px-3 py-1-5 rounded-full" onclick="addToCart('Paneer Tomato Double Cheese Pizza S',79)">S ADD</button><button class="bg-orange-500 hover:bg-orange-600 text-white text-xs font-bold px-3 py-1-5 rounded-full ml-1" onclick="addToCart('Paneer Tomato Double Cheese Pizza B',119)">B ADD</button></div></div>
+<div class="bg-white rounded-xl px-4 py-3 flex justify-between shadow-sm border"><div class="flex-1 pr-3"><p class="font-medium text-sm">Paneer Tandoori Double Cheese Pizza</p><p class="orange font-bold text-sm">S ₹79 | B ₹139</p></div><div><button class="bg-orange-500 hover:bg-orange-600 text-white text-xs font-bold px-3 py-1-5 rounded-full" onclick="addToCart('Paneer Tandoori Double Cheese Pizza S',79)">S ADD</button><button class="bg-orange-500 hover:bg-orange-600 text-white text-xs font-bold px-3 py-1-5 rounded-full ml-1" onclick="addToCart('Paneer Tandoori Double Cheese Pizza B',139)">B ADD</button></div></div>
+<div class="bg-white rounded-xl px-4 py-3 flex justify-between shadow-sm border"><div class="flex-1 pr-3"><p class="font-medium text-sm">Peppy Paneer Double Cheese Pizza</p><p class="orange font-bold text-sm">S ₹79 | B ₹139</p></div><div><button class="bg-orange-500 hover:bg-orange-600 text-white text-xs font-bold px-3 py-1-5 rounded-full" onclick="addToCart('Peppy Paneer Double Cheese Pizza S',79)">S ADD</button><button class="bg-orange-500 hover:bg-orange-600 text-white text-xs font-bold px-3 py-1-5 rounded-full ml-1" onclick="addToCart('Peppy Paneer Double Cheese Pizza B',139)">B ADD</button></div></div>
+<div class="bg-white rounded-xl px-4 py-3 flex justify-between shadow-sm border"><div class="flex-1 pr-3"><p class="font-medium text-sm">Paneer Tikka Double Cheese Pizza</p><p class="orange font-bold text-sm">S ₹79 | B ₹139</p></div><div><button class="bg-orange-500 hover:bg-orange-600 text-white text-xs font-bold px-3 py-1-5 rounded-full" onclick="addToCart('Paneer Tikka Double Cheese Pizza S',79)">S ADD</button><button class="bg-orange-500 hover:bg-orange-600 text-white text-xs font-bold px-3 py-1-5 rounded-full ml-1" onclick="addToCart('Paneer Tikka Double Cheese Pizza B',139)">B ADD</button></div></div>
+<div class="bg-white rounded-xl px-4 py-3 flex justify-between shadow-sm border"><div class="flex-1 pr-3"><p class="font-medium text-sm">Paneer Veg Double Cheese Pizza</p><p class="orange font-bold text-sm">S ₹99 | B ₹119</p></div><div><button class="bg-orange-500 hover:bg-orange-600 text-white text-xs font-bold px-3 py-1-5 rounded-full" onclick="addToCart('Paneer Veg Double Cheese Pizza S',99)">S ADD</button><button class="bg-orange-500 hover:bg-orange-600 text-white text-xs font-bold px-3 py-1-5 rounded-full ml-1" onclick="addToCart('Paneer Veg Double Cheese Pizza B',119)">B ADD</button></div></div>
+<div class="bg-white rounded-xl px-4 py-3 flex justify-between shadow-sm border"><div class="flex-1 pr-3"><p class="font-medium text-sm">Paneer Loaded Double Cheese Pizza</p><p class="orange font-bold text-sm">S ₹119 | B ₹149</p></div><div><button class="bg-orange-500 hover:bg-orange-600 text-white text-xs font-bold px-3 py-1-5 rounded-full" onclick="addToCart('Paneer Loaded Double Cheese Pizza S',119)">S ADD</button><button class="bg-orange-500 hover:bg-orange-600 text-white text-xs font-bold px-3 py-1-5 rounded-full ml-1" onclick="addToCart('Paneer Loaded Double Cheese Pizza B',149)">B ADD</button></div></div>
+</div>
+</section>
+
+<!-- SPICY PIZZA -->
+<section id="spicy-pizza" class="mb-8 scroll-mt-28">
+<h2 class="text-lg font-bold mb-3 border-b-2 pb-1 orange">🌶️ Spicy Lover ❤️</h2>
+<div class="grid">
+<div class="bg-white rounded-xl px-4 py-3 flex justify-between shadow-sm border"><div class="flex-1 pr-3"><p class="font-medium text-sm">Spicy Mix Veg Cheese Pizza</p><p class="orange font-bold text-sm">₹119</p></div><button class="bg-orange-500 hover:bg-orange-600 text-white text-xs font-bold px-4 py-1-5 rounded-full" onclick="addToCart('Spicy Mix Veg Cheese Pizza',119)">ADD</button></div>
+<div class="bg-white rounded-xl px-4 py-3 flex justify-between shadow-sm border"><div class="flex-1 pr-3"><p class="font-medium text-sm">Spicy Paneer Veg Cheese Pizza</p><p class="orange font-bold text-sm">₹119</p></div><button class="bg-orange-500 hover:bg-orange-600 text-white text-xs font-bold px-4 py-1-5 rounded-full" onclick="addToCart('Spicy Paneer Veg Cheese Pizza',119)">ADD</button></div>
+<div class="bg-white rounded-xl px-4 py-3 flex justify-between shadow-sm border"><div class="flex-1 pr-3"><p class="font-medium text-sm">Spicy Chilli Loaded Pizza</p><p class="orange font-bold text-sm">₹119</p></div><button class="bg-orange-500 hover:bg-orange-600 text-white text-xs font-bold px-4 py-1-5 rounded-full" onclick="addToCart('Spicy Chilli Loaded Pizza',119)">ADD</button></div>
+</div>
+</section>
+
+<!-- EXOTIC PIZZA -->
+<section id="exotic-pizza" class="mb-8 scroll-mt-28">
+<h2 class="text-lg font-bold mb-3 border-b-2 pb-1 orange">🫒 Exotic Veg Lover ❤️</h2>
+<div class="grid">
+<div class="bg-white rounded-xl px-4 py-3 flex justify-between shadow-sm border"><div class="flex-1 pr-3"><p class="font-medium text-sm">Jalapeno Cheese Pizza</p><p class="orange font-bold text-sm">₹119</p></div><button class="bg-orange-500 hover:bg-orange-600 text-white text-xs font-bold px-4 py-1-5 rounded-full" onclick="addToCart('Jalapeno Cheese Pizza',119)">ADD</button></div>
+<div class="bg-white rounded-xl px-4 py-3 flex justify-between shadow-sm border"><div class="flex-1 pr-3"><p class="font-medium text-sm">Olive Cheese Pizza</p><p class="orange font-bold text-sm">₹119</p></div><button class="bg-orange-500 hover:bg-orange-600 text-white text-xs font-bold px-4 py-1-5 rounded-full" onclick="addToCart('Olive Cheese Pizza',119)">ADD</button></div>
+<div class="bg-white rounded-xl px-4 py-3 flex justify-between shadow-sm border"><div class="flex-1 pr-3"><p class="font-medium text-sm">Red Paprica Cheese Pizza</p><p class="orange font-bold text-sm">₹119</p></div><button class="bg-orange-500 hover:bg-orange-600 text-white text-xs font-bold px-4 py-1-5 rounded-full" onclick="addToCart('Red Paprica Cheese Pizza',119)">ADD</button></div>
+<div class="bg-white rounded-xl px-4 py-3 flex justify-between shadow-sm border"><div class="flex-1 pr-3"><p class="font-medium text-sm">Mix Exotic Veggie Cheese Pizza</p><p class="orange font-bold text-sm">₹149</p></div><button class="bg-orange-500 hover:bg-orange-600 text-white text-xs font-bold px-4 py-1-5 rounded-full" onclick="addToCart('Mix Exotic Veggie Cheese Pizza',149)">ADD</button></div>
+</div>
+</section>
+<!-- SANDWICHES -->
+<section id="sandwiches" class="mb-8 scroll-mt-28">
+<h2 class="text-lg font-bold mb-3 border-b-2 pb-1 orange">🥪 Sandwiches</h2>
+<div class="grid">
+<div class="bg-white rounded-xl px-4 py-3 flex justify-between shadow-sm border"><div class="flex-1 pr-3"><p class="font-medium text-sm">Masala Sandwich</p><p class="orange font-bold text-sm">₹49</p></div><button class="bg-orange-500 hover:bg-orange-600 text-white text-xs font-bold px-4 py-1-5 rounded-full" onclick="addToCart('Masala Sandwich',49)">ADD</button></div>
+<div class="bg-white rounded-xl px-4 py-3 flex justify-between shadow-sm border"><div class="flex-1 pr-3"><p class="font-medium text-sm">Veg Mix Sandwich</p><p class="orange font-bold text-sm">₹49</p></div><button class="bg-orange-500 hover:bg-orange-600 text-white text-xs font-bold px-4 py-1-5 rounded-full" onclick="addToCart('Veg Mix Sandwich',49)">ADD</button></div>
+<div class="bg-white rounded-xl px-4 py-3 flex justify-between shadow-sm border"><div class="flex-1 pr-3"><p class="font-medium text-sm">Cheese Corn Sandwich</p><p class="orange font-bold text-sm">₹49</p></div><button class="bg-orange-500 hover:bg-orange-600 text-white text-xs font-bold px-4 py-1-5 rounded-full" onclick="addToCart('Cheese Corn Sandwich',49)">ADD</button></div>
+<div class="bg-white rounded-xl px-4 py-3 flex justify-between shadow-sm border"><div class="flex-1 pr-3"><p class="font-medium text-sm">Pizza Cheese Sandwich</p><p class="orange font-bold text-sm">₹49</p></div><button class="bg-orange-500 hover:bg-orange-600 text-white text-xs font-bold px-4 py-1-5 rounded-full" onclick="addToCart('Pizza Cheese Sandwich',49)">ADD</button></div>
+<div class="bg-white rounded-xl px-4 py-3 flex justify-between shadow-sm border"><div class="flex-1 pr-3"><p class="font-medium text-sm">Cheese Chutney Sandwich</p><p class="orange font-bold text-sm">₹49</p></div><button class="bg-orange-500 hover:bg-orange-600 text-white text-xs font-bold px-4 py-1-5 rounded-full" onclick="addToCart('Cheese Chutney Sandwich',49)">ADD</button></div>
+<div class="bg-white rounded-xl px-4 py-3 flex justify-between shadow-sm border"><div class="flex-1 pr-3"><p class="font-medium text-sm">Paneer Tandoori Sandwich</p><p class="orange font-bold text-sm">₹59</p></div><button class="bg-orange-500 hover:bg-orange-600 text-white text-xs font-bold px-4 py-1-5 rounded-full" onclick="addToCart('Paneer Tandoori Sandwich',59)">ADD</button></div>
+<div class="bg-white rounded-xl px-4 py-3 flex justify-between shadow-sm border"><div class="flex-1 pr-3"><p class="font-medium text-sm">Paneer Masala Sandwich</p><p class="orange font-bold text-sm">₹59</p></div><button class="bg-orange-500 hover:bg-orange-600 text-white text-xs font-bold px-4 py-1-5 rounded-full" onclick="addToCart('Paneer Masala Sandwich',59)">ADD</button></div>
+<div class="bg-white rounded-xl px-4 py-3 flex justify-between shadow-sm border"><div class="flex-1 pr-3"><p class="font-medium text-sm">Italian Sandwich</p><p class="orange font-bold text-sm">₹79</p></div><button class="bg-orange-500 hover:bg-orange-600 text-white text-xs font-bold px-4 py-1-5 rounded-full" onclick="addToCart('Italian Sandwich',79)">ADD</button></div>
+<div class="bg-white rounded-xl px-4 py-3 flex justify-between shadow-sm border"><div class="flex-1 pr-3"><p class="font-medium text-sm">Oreo Sandwich</p><p class="orange font-bold text-sm">₹79</p></div><button class="bg-orange-500 hover:bg-orange-600 text-white text-xs font-bold px-4 py-1-5 rounded-full" onclick="addToCart('Oreo Sandwich',79)">ADD</button></div>
+<div class="bg-white rounded-xl px-4 py-3 flex justify-between shadow-sm border"><div class="flex-1 pr-3"><p class="font-medium text-sm">Chocolate Sandwich</p><p class="orange font-bold text-sm">₹59</p></div><button class="bg-orange-500 hover:bg-orange-600 text-white text-xs font-bold px-4 py-1-5 rounded-full" onclick="addToCart('Chocolate Sandwich',59)">ADD</button></div>
+<div class="bg-white rounded-xl px-4 py-3 flex justify-between shadow-sm border"><div class="flex-1 pr-3"><p class="font-medium text-sm">Our Special Sandwich</p><p class="orange font-bold text-sm">₹99</p></div><button class="bg-orange-500 hover:bg-orange-600 text-white text-xs font-bold px-4 py-1-5 rounded-full" onclick="addToCart('Our Special Sandwich',99)">ADD</button></div>
+</div>
+</section>
+
+<!-- BURGERS -->
+<section id="burgers" class="mb-8 scroll-mt-28">
+<h2 class="text-lg font-bold mb-3 border-b-2 pb-1 orange">🍔 Burgers</h2>
+<div class="grid">
+<div class="bg-white rounded-xl px-4 py-3 flex justify-between shadow-sm border"><div class="flex-1 pr-3"><p class="font-medium text-sm">Aloo Tikki Cheese Burger</p><p class="orange font-bold text-sm">₹49</p></div><button class="bg-orange-500 hover:bg-orange-600 text-white text-xs font-bold px-4 py-1-5 rounded-full" onclick="addToCart('Aloo Tikki Cheese Burger',49)">ADD</button></div>
+<div class="bg-white rounded-xl px-4 py-3 flex justify-between shadow-sm border"><div class="flex-1 pr-3"><p class="font-medium text-sm">Veg Cheese Burger</p><p class="orange font-bold text-sm">₹59</p></div><button class="bg-orange-500 hover:bg-orange-600 text-white text-xs font-bold px-4 py-1-5 rounded-full" onclick="addToCart('Veg Cheese Burger',59)">ADD</button></div>
+<div class="bg-white rounded-xl px-4 py-3 flex justify-between shadow-sm border"><div class="flex-1 pr-3"><p class="font-medium text-sm">Paneer Tandoori Burger</p><p class="orange font-bold text-sm">₹69</p></div><button class="bg-orange-500 hover:bg-orange-600 text-white text-xs font-bold px-4 py-1-5 rounded-full" onclick="addToCart('Paneer Tandoori Burger',69)">ADD</button></div>
+<div class="bg-white rounded-xl px-4 py-3 flex justify-between shadow-sm border"><div class="flex-1 pr-3"><p class="font-medium text-sm">Double Tikki Cheese Burger</p><p class="orange font-bold text-sm">₹69</p></div><button class="bg-orange-500 hover:bg-orange-600 text-white text-xs font-bold px-4 py-1-5 rounded-full" onclick="addToCart('Double Tikki Cheese Burger',69)">ADD</button></div>
+<div class="bg-white rounded-xl px-4 py-3 flex justify-between shadow-sm border"><div class="flex-1 pr-3"><p class="font-medium text-sm">Spicy Paneer Cheese Burger</p><p class="orange font-bold text-sm">₹69</p></div><button class="bg-orange-500 hover:bg-orange-600 text-white text-xs font-bold px-4 py-1-5 rounded-full" onclick="addToCart('Spicy Paneer Cheese Burger',69)">ADD</button></div>
+<div class="bg-white rounded-xl px-4 py-3 flex justify-between shadow-sm border"><div class="flex-1 pr-3"><p class="font-medium text-sm">Our Special Burger</p><p class="orange font-bold text-sm">₹79</p></div><button class="bg-orange-500 hover:bg-orange-600 text-white text-xs font-bold px-4 py-1-5 rounded-full" onclick="addToCart('Our Special Burger',79)">ADD</button></div>
+</div>
+</section>
+
+<!-- FRIES -->
+
+<section id="fries" class="mb-8 scroll-mt-28">
+<h2 class="text-lg font-bold mb-3 border-b-2 pb-1 orange">🍟 French Fries</h2>
+<div class="grid">
+<div class="bg-white rounded-xl px-4 py-3 flex justify-between border"><div><p class="font-bold text-sm text-gray-800">Salted French Fries</p><p class="orange text-sm">₹49</p></div><button class="bg-orange-500 text-xs font-bold px-4 py-1-5 rounded-full" onclick="addToCart('Salted French Fries',49)">ADD</button></div>
+<div class="bg-white rounded-xl px-4 py-3 flex justify-between border"><div><p class="font-bold text-sm text-gray-800">Masala French Fries</p><p class="orange text-sm">₹49</p></div><button class="bg-orange-500 text-xs font-bold px-4 py-1-5 rounded-full" onclick="addToCart('Masala French Fries',49)">ADD</button></div>
+<div class="bg-white rounded-xl px-4 py-3 flex justify-between border"><div><p class="font-bold text-sm text-gray-800">Peri Peri French Fries</p><p class="orange text-sm">₹59</p></div><button class="bg-orange-500 text-xs font-bold px-4 py-1-5 rounded-full" onclick="addToCart('Peri Peri French Fries',59)">ADD</button></div>
+<div class="bg-white rounded-xl px-4 py-3 flex justify-between border"><div><p class="font-bold text-sm text-gray-800">Masala Cheese French Fries</p><p class="orange text-sm">₹69</p></div><button class="bg-orange-500 text-xs font-bold px-4 py-1-5 rounded-full" onclick="addToCart('Masala Cheese French Fries',69)">ADD</button></div>
+<div class="bg-white rounded-xl px-4 py-3 flex justify-between border"><div><p class="font-bold text-sm text-gray-800">Peri Peri Cheese French Fries</p><p class="orange text-sm">₹79</p></div><button class="bg-orange-500 text-xs font-bold px-4 py-1-5 rounded-full" onclick="addToCart('Peri Peri Cheese French Fries',79)">ADD</button></div>
+</div>
+</section>
+
+<section id="momos" class="mb-8 scroll-mt-28">
+<h2 class="text-lg font-bold mb-3 border-b-2 pb-1 orange">🥟 Momos</h2>
+<div class="grid">
+<div class="bg-white rounded-xl px-4 py-3 flex justify-between border"><div><p class="font-bold text-sm text-gray-800">Veg Fried Momos</p><p class="orange text-sm">₹49</p></div><button class="bg-orange-500 text-xs font-bold px-4 py-1-5 rounded-full" onclick="addToCart('Veg Fried Momos',49)">ADD</button></div>
+<div class="bg-white rounded-xl px-4 py-3 flex justify-between border"><div><p class="font-bold text-sm text-gray-800">Paneer Fried Momos</p><p class="orange text-sm">₹59</p></div><button class="bg-orange-500 text-xs font-bold px-4 py-1-5 rounded-full" onclick="addToCart('Paneer Fried Momos',59)">ADD</button></div>
+<div class="bg-white rounded-xl px-4 py-3 flex justify-between border"><div><p class="font-bold text-sm text-gray-800">Sweet Corn Momos</p><p class="orange text-sm">₹59</p></div><button class="bg-orange-500 text-xs font-bold px-4 py-1-5 rounded-full" onclick="addToCart('Sweet Corn Momos',59)">ADD</button></div>
+</div>
+</section>
+
+<section id="drinks" class="mb-8 scroll-mt-28">
+<h2 class="text-lg font-bold mb-3 border-b-2 pb-1 orange">🥤 Drinks</h2>
+<div class="grid">
+<div class="bg-white rounded-xl px-4 py-3 flex justify-between border"><div><p class="font-bold text-sm text-gray-800">Lime Soda</p><p class="orange text-sm">₹29</p></div><button class="bg-orange-500 text-xs font-bold px-4 py-1-5 rounded-full" onclick="addToCart('Lime Soda',29)">ADD</button></div>
+<div class="bg-white rounded-xl px-4 py-3 flex justify-between border"><div><p class="font-bold text-sm text-gray-800">Cold Coffee</p><p class="orange text-sm">₹49</p></div><button class="bg-orange-500 text-xs font-bold px-4 py-1-5 rounded-full" onclick="addToCart('Cold Coffee',49)">ADD</button></div>
+<div class="bg-white rounded-xl px-4 py-3 flex justify-between border"><div><p class="font-bold text-sm text-gray-800">Chocolate Shake</p><p class="orange text-sm">₹49</p></div><button class="bg-orange-500 text-xs font-bold px-4 py-1-5 rounded-full" onclick="addToCart('Chocolate Shake',49)">ADD</button></div>
+<div class="bg-white rounded-xl px-4 py-3 flex justify-between border"><div><p class="font-bold text-sm text-gray-800">
+    <div class="menu-item"<div
+class="menu-info"><h3> Pizza Box Packing</h3><p>₹10</p></div><button class="add-btn" 
+onclick="addToCart('Box Packing',10)">Add to Cart 🛒</button></div>
+
+</div>
+ <section id="order" class="scroll-mt-28 bg-white rounded-2xl shadow-md border-orange-100 p-5 mb-8">
+<h2 class="text-lg font-bold text-gray-800 mb-4">📦 Place Your Order</h2>
+<div class="flex flex-col gap-3">
+<input type="text" id="custName" placeholder="Your Name *" class="border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400"/>
+<input type="tel" id="custPhone" placeholder="Mobile Number *" class="border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400"/>
+<textarea id="custAddress" placeholder="Delivery Address *" rows="3" class="border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 resize-none"></textarea>
+
+<button class="bg-orange-500 text-white w-full py-2 rounded-lg mt-2"
+onclick="payNow()">
+💳 Pay Now
+</button>
+<script>
+function payNow() {
+  if(cart.length === 0){
+    alert("Cart khali hai!");
+    return;
+  }
+
+  let total = 0;
+  cart.forEach(item => {
+    total += item.price;
+  });
+
+  let upiId = "jesjes@ybl";
+  let name = "Shivay Pizza";
+
+  let upiUrl =
+    `upi://pay?pa=${upiId}&pn=${encodeURIComponent(name)}&am=${total}&cu=INR`;
+
+  window.location.href = upiUrl;
+}
+</script>
+<button class="bg-green-500 hover:bg-green-600 text-white font-bold py-3 rounded-xl text-base flex items-center justify-center gap-2 transition shadow" onclick="sendWhatsApp()">
+<span>💬</span> Send Order on WhatsApp
+</button>
+</div>
+</section>
+
+<footer class="text-center text-sm text-gray-500 space-y-1 py-4">
+<p class="font-semibold text-gray-700">📍 Gogawan (Near Govt Hospital)</p>
+<p>📞 <a href="tel:9516834958" class="orange font-medium">9516834958</a></p>
+<p>💳 UPI: <span class="font-medium text-gray-700">jesjes@ybl</span></p>
+<p class="text-xs text-gray-400 pt-1">Delivery: Gogawan • Shahpura • Adalpura • Mohammadpur</p>
+</footer>
+</main>
+
+<a href="https://wa.me/919516834958" target="_blank" class="fixed bottom-6 right-4 bg-green-500 hover:bg-green-600 text-white w-14 h-14 rounded-full flex items-center justify-center text-2xl shadow-xl z-50">💬</a>
+
+<div id="cartPanel" class="cart-panel">
+<h3 class="font-bold mb-2 orange">Your Cart</h3>
+<div id="cartItems"></div>
+<div id="cartTotal" class="cart-total"></div>
+<button class="bg-green-500 text-white w-full py-2 rounded-lg mt-2" onclick="sendWhatsApp()">Order Now</button>
+</div>
+</div>
+
+<script>
+let cart = [];
+
+function addToCart(name, price) {
+  cart.push({name, price});
+  updateCart();
+  alert(name + ' cart me add ho gaya ✅');
+}
+
+function updateCart() {
+  document.getElementById('cartCount').innerText = cart.length;
+  let items = document.getElementById('cartItems');
+  let total = document.getElementById('cartTotal');
+  items.innerHTML = '';
+  let sum = 0;
+  cart.forEach((item, i) => {
+    sum += item.price;
+    items.innerHTML += `<div class="cart-item">${item.name} - ₹${item.price} <span onclick="removeItem(${i})" style="color:red;cursor:pointer">❌</span></div>`;
+  });
+  total.innerText = 'Total: ₹' + sum;
+}
+
+function removeItem(i) {
+  cart.splice(i,1);
+  updateCart();
+}
+
+function toggleCart() {
+  let panel = document.getElementById('cartPanel');
+  panel.style.display = panel.style.display === 'block'? 'none' : 'block';
+}
+
+function sendWhatsApp() {
+  let name = document.getElementById('custName').value;
+  let phone = document.getElementById('custPhone').value;
+  let address = document.getElementById('custAddress').value;
+
+  if(!name ||!phone ||!address) {
+    alert('Name, Mobile aur Address bharna zaroori hai!');
+    return;
+  }
+
+  if(cart.length === 0) {
+    alert('Cart khali hai! Pehle items add karo.');
+    return;
+  }
+
+  let orderText = '🛵🍕 *New Order from Website*\n\n';
+  orderText += '*Name:* ' + name + '\n';
+  orderText += '*Phone:* ' + phone + '\n';
+  orderText += '*Address:* ' + address + '\n\n';
+  orderText += '*Order Details:*\n';
+
+  let total = 0;
+  cart.forEach(item => {
+    orderText += '• ' + item.name + ' - ₹' + item.price + '\n';
+    total += item.price;
+  });
+
+  orderText += '\n*Total Amount: ₹' + total + '*';
+
+  let whatsappURL = 'https://wa.me/919516834958?text=' + encodeURIComponent(orderText);
+  window.open(whatsappURL, '_blank');
+
+  cart = [];
+  updateCart();
+  toggleCart();
+  document.getElementById('custName').value = '';
+  document.getElementById('custPhone').value = '';
+  document.getElementById('custAddress').value = '';
+}
+</script>
+</body>
+</html>
